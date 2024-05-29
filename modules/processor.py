@@ -4,17 +4,17 @@ import os
 import chess.pgn
 
 from modules.converter import get_moves
-from modules.structures.message_sender import MessageSender
+# from modules.structures.message_sender import MessageSender
 
 
 class Processor:
     def __init__(
             self,
             filename: str,
-            message_sender: MessageSender
+            # message_sender: MessageSender
     ):
         self.filename = filename
-        self.message_sender = message_sender
+        # self.message_sender = message_sender
 
     @staticmethod
     def preprocess(game_path: str, output_directory: str):

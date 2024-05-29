@@ -16,6 +16,7 @@ INPUT_DIRECTORY = configuration['paths']['processed']
 STOCKFISH_DEPTH = configuration['stockfish']['depth']
 
 if __name__ == '__main__':
+    # print('Begin parsing\n')
     parser = argparse.ArgumentParser(
         prog='ChessTacticFinder',
         description='A tool for finding tactics out of PGN files.'
@@ -26,24 +27,26 @@ if __name__ == '__main__':
     args = parser.parse_args()
     pgn_path = args.pgn
     stockfish_depth = args.depth
+    # stockfish_depth = STOCKFISH_DEPTH
 
     name, filenames = convert(pgn_path)
-
-    client = get_client()
-    client.send(Message(f'{name} Analysis of {len(filenames)} games started.', 0, len(filenames)).encode())
+    # print('Done parsing\n')
+    
+    # client = get_client()
+    # client.send(Message(f'{name} Analysis of {len(filenames)} games started.', 0, len(filenames)).encode())
 
     success = True
     with tqdm(filenames) as bar:
         for filename in bar:
             analyzer = Analyzer(
                 filename=filename,
-                message_sender=MessageSender(
-                    client=client,
-                    id=name,
-                    text='Analyzed',
-                    analyzed=bar.n,
-                    total=bar.total,
-                )
+                # message_sender=MessageSender(
+                #     client=client,
+                #     id=name,
+                #     text='Analyzed',
+                #     analyzed=bar.n,
+                #     total=bar.total,
+                # )
             )
 
             try:
@@ -51,15 +54,15 @@ if __name__ == '__main__':
             except KeyboardInterrupt:
                 success = False
                 print('Interrupted.')
-                client.send(Message(f'{name} Analysis interrupted.', bar.n, len(filenames)).encode())
+                # client.send(Message(f'{name} Analysis interrupted.', bar.n, len(filenames)).encode())
                 break
             except FileNotFoundError:
                 success = False
                 print('Stockfish is not properly installed.')
-                client.send(Message(f'{name} Stockfish error.', bar.n, len(filenames)).encode())
+                # client.send(Message(f'{name} Stockfish error.', bar.n, len(filenames)).encode())
                 break
 
-    if success:
-        client.send(Message(f'{name} Analysis completed.', len(filenames), len(filenames)).encode())
+    # if success:
+        # client.send(Message(f'{name} Analysis completed.', len(filenames), len(filenames)).encode())
 
-    client.close()
+    # client.close()

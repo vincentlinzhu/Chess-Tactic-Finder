@@ -8,4 +8,5 @@ else
     source shell/sh/install.sh
     source venv/bin/activate
     python run.py
-fi
+#fi
+end

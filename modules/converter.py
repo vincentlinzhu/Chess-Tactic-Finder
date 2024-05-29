@@ -30,6 +30,7 @@ def create_game_from_board(headers: chess.pgn.Headers, board: chess.Board) -> ch
 
 def extract_games(pgn: str, output_path: str, temp_file: str = TEMP_FILE):
     absolute_path = os.path.abspath(temp_file)
+    # print(f"absolute_path: {absolute_path}\n")
     with open(absolute_path, "w") as file:
         file.write(pgn)
 
@@ -41,6 +42,7 @@ def extract_games(pgn: str, output_path: str, temp_file: str = TEMP_FILE):
     for filename in filenames:
         os.remove(os.path.join(output_path, filename))
 
+    # print(f"PGN Extract Path: {PGN_EXTRACT_PATH}\n")
     try:
         subprocess.run(
             [PGN_EXTRACT_PATH, "-#1,0", "-Wuci", absolute_path],

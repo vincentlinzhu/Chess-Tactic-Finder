@@ -158,12 +158,19 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             path = os.path.join('shell', 'sh', 'analyze.sh')
             command = f'{path} {mode}.py {INPUT_PGN_FILE}'
             run_linux(command)
-
+            
         else:
             raise NotImplementedError(f'Platform {platform.system()} is not supported')
 
         result = 'Analysis started.'
+        # result = 'result: Analysis started \n'
+        # path = f'path: {path} \n'
+        # mode = f'mode: {mode} \n'
+        # pgn_input = f'PGN: {INPUT_PGN_FILE} \n'
         self.send_text(result)
+        # self.send_text(path)
+        # self.send_text(mode)
+        # self.send_text(INPUT_PGN_FILE)
 
     def log_message(self, format, *args):
         message = format % args

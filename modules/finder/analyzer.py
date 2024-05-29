@@ -77,12 +77,12 @@ class Analyzer(Processor):
             move_string = f'{move_number}{"." if white else "..."} {board_move} {"   " if white else " "}'
             print(f'{move_string}\t{evaluation}')
 
-            self.message_sender(
-                filename=output_filename,
-                fen=board.fen(),
-                move_string=move_string,
-                evaluation=evaluation
-            )
+            # self.message_sender(
+            #     filename=output_filename,
+            #     fen=board.fen(),
+            #     move_string=move_string,
+            #     evaluation=evaluation
+            # )
 
             tactic_finder = TacticFinder(stockfish, not white, starting_position=position, fens=fens)
             variations, tactic = tactic_finder.get_variations(headers=headers)
